@@ -1,36 +1,27 @@
-import React, { useEffect, useState } from "react";
-import getArticle from "../services/getNews";
-function Article() {
-  const [news, setNews] = useState([]);
-  const gettingData = async () => {
-    await getArticle()
-      .then((res) => setNews(res.data))
-      .catch((err) => err.message);
-  };
-  useEffect(() => {
-    gettingData();
-  });
+import React from "react";
+function Article({ news, num, setNum }) {
   return (
-    <div>
-      {/* {news &&
-        news.map((data) => {
-          <div className="card" style={{ width: "18rem" }}>
+    <div className="row">
+      {news &&
+        news.slice(0, num).map((data) => (
+          <div className="card w-25 col-2 m-3" key={data.title}>
             <img
               src={data.urlToImage}
               className="card-img-top"
-              alt={data.title}
+              alt={data.source.name}
             />
             <div className="card-body">
               <h3 className="card-title">{data.title}</h3>
               <h4>{data.author}</h4>
               <h5>{data.publishedAt}</h5>
               <p className="card-text">{data.description}</p>
+              <a className="btn btn-danger text-black" href={data.url}>
+                Read Full Article
+              </a>
             </div>
-            <a className="btn btn-danger text-black" href={data.url}>
-              Read Full Article
-            </a>
-          </div>;
-        })} */}
+          </div>
+        ))}
+      <button onClick={() => setNum(num + 20)}>load More...</button>
     </div>
   );
 }

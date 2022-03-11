@@ -21,7 +21,18 @@ function Article({ news, num, setNum }) {
             </div>
           </div>
         ))}
-      <button onClick={() => setNum(num + 20)}>load More...</button>
+      <button
+        onClick={() => {
+          if (news.length < num) {
+            setNum(5);
+          } else {
+            setNum(num + 5);
+          }
+        }}
+        className="btn btn-primary m-3"
+      >
+        load More...
+      </button>
     </div>
   );
 }

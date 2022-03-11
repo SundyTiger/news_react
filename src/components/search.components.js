@@ -1,18 +1,20 @@
 import React from "react";
 
-function Search({ news, setNews, searching, setSearch }) {
+function Search({ news, setNews, newsData, searching, setSearch }) {
   const searchData = () => {
     if (searching.length > 0) {
-      return news.filter((data) => {
-        return data.title.toLowerCase().indexOf(searching.toLowerCase()) !== -1;
-      });
+      return news.filter(
+        (data) =>
+          data.title.toLowerCase().indexOf(searching.toLowerCase()) !== -1
+      );
     } else {
+      return newsData;
     }
   };
+
   return (
     <div>
       <div className="m-auto mt-3 w-50 d-flex">
-        <label className="form-label mt-2 me-2">Search:</label>
         <input
           type="text"
           className="form-control"
@@ -22,10 +24,14 @@ function Search({ news, setNews, searching, setSearch }) {
             setSearch(e.target.value);
           }}
         />
+        <button
+          type="button"
+          className="btn btn-primary ms-3"
+          onClick={() => setNews(searchData())}
+        >
+          Search
+        </button>
       </div>
-      <button type="button" onClick={() => setNews(searchData())}>
-        Search
-      </button>
     </div>
   );
 }
